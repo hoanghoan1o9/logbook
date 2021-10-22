@@ -1,18 +1,17 @@
 import React, {useEffect} from 'react';
 import TrackPlayer from 'react-native-track-player';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Vibration,
+} from 'react-native';
+
+//duration time of vibration
+const DURATION = 1000;
 
 const tracks = [
-  // {
-  //   id: 1,
-  //   url: require('./tracks/blues.wav'),
-  //   title: 'Viet Nam',
-  // },
-  // {
-  //   id: 2,
-  //   url: require('./tracks/country.mp3'),
-  //   title: 'Viet Nam',
-  // },
   {
     id: 1,
     url: require('./tracks/dtcev.mp3'),
@@ -35,6 +34,15 @@ TrackPlayer.updateOptions({
 });
 
 const App = () => {
+  const startVibration = () => {
+    //start vibration
+    Vibration.vibrate(DURATION);
+  };
+
+  // const stopVibration = () => {
+  //   Vibration.cancel()
+  // };
+
   const setUpTrackPlayer = async () => {
     try {
       await TrackPlayer.setupPlayer();
@@ -64,7 +72,7 @@ const App = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.row}>
+      {/* <View style={styles.row}>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => TrackPlayer.skipToPrevious()}>
@@ -75,6 +83,15 @@ const App = () => {
           onPress={() => TrackPlayer.skipToNext()}>
           <Text style={styles.text}>Next</Text>
         </TouchableOpacity>
+      </View> */}
+
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.btn} onPress={startVibration}>
+          <Text style={styles.text}>Vibrate</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.btn} onPress={stopVibration}>
+          <Text style={styles.text}></Text>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -85,10 +102,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'silver',
   },
   btn: {
-    backgroundColor: '#ff0044',
+    backgroundColor: '#61dafb',
     padding: 15,
     borderRadius: 10,
     margin: 10,
